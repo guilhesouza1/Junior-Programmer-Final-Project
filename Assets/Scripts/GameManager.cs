@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN_A, ENEMYTURN_B, ENEMYTURN_C, WON, LOST }
+[DefaultExecutionOrder (1)]
 public class GameManager : MonoBehaviour
 {
     public BattleState state;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public Transform enemyBattleStation3;
     public GameObject infoScreen;
     public GameObject basicCommandUI;
+    public PlayerHUD playerHUD;
     [SerializeField] Button infoButton;
     [SerializeField] Button fightButton;
     [SerializeField] GameObject hpSlider;
@@ -40,6 +42,10 @@ public class GameManager : MonoBehaviour
 
         GameObject enemy1GO = Instantiate(enemyRedPrefab, enemyBattleStation1);
         enemyUnit = enemy1GO.GetComponent<Enemy>();
+    }
+    void Update()
+    {
+     playerHUD.SetHUD(playerUnit);   
     }
     public void PauseGame()
     {

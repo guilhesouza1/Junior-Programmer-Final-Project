@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class EnemyRed : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        
+        level = 1;
+        strength = 1;
+        speed = 0;
+        swagger = 0;
+        intelligence = 0;
     }
-
-    // Update is called once per frame
     void Update()
     {
         CheckIfDead();

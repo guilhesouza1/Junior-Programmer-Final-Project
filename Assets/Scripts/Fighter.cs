@@ -12,9 +12,11 @@ public class Fighter : MonoBehaviour
     public int maxMp;
     public int currentMp;
 
-    void Awake()
+    void Start()
     {
-     maxHp = strength + speed;
-     maxMp = intelligence + swagger;   
+        maxHp = strength + speed;
+        maxMp = intelligence + swagger;
+        currentHp = maxHp;
+        currentMp = maxMp;
     }
 }

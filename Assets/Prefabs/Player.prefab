@@ -188,7 +188,9 @@ MonoBehaviour:
   speed: 1
   swagger: 1
   intelligence: 1
-  maxHp: 0
-  currentHp: 1
+  maxHp: 2
+  currentHp: 2
   maxMp: 0
   currentMp: 0
+  maxXp: 0
+  currentXp: 0
