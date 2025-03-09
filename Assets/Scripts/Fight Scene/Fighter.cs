@@ -34,7 +34,9 @@ public class Fighter : MonoBehaviour
     {
         //StartAnimation();
         yield return new WaitForSeconds(2.0f);
-        //StartFightAction();
+        StartFightAction();
+        yield return new WaitForSeconds(2.0f);
+        
         damageGiven = strength + Random.Range(1, 7);
     }
     public void TakeDamage(int damageTaken)
@@ -45,7 +47,7 @@ public class Fighter : MonoBehaviour
     {
         animator.SetTrigger("Fight");
     }
-    public void StartFightAction()
+    public virtual void StartFightAction()
     {
 
     }

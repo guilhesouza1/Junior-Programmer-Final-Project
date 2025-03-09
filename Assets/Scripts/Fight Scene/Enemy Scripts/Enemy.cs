@@ -13,7 +13,7 @@ public class Enemy : Fighter
         damageUI = tmpGO.GetComponent<TextMeshProUGUI>();
         //damageUI.text = " ";
     }
-    public override IEnumerator Fight()
+    public override void StartFightAction()
     {
         animator.SetTrigger("EnemyFight");
         Player player = FindFirstObjectByType<Player>();
@@ -53,7 +53,7 @@ public class Enemy : Fighter
         else
             damageUI.text = " ";
 
-        return base.Fight();
+        return;
     }
     public void CheckIfDead()
     {

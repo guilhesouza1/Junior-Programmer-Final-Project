@@ -31,7 +31,7 @@ public class Player : Fighter
         damageUI = tmpGO.GetComponent<TextMeshProUGUI>();
         damageUI.text = " ";
     }
-    public override IEnumerator Fight()
+    public override void StartFightAction()
     {
         animator.SetTrigger("PlayerFight");
         Enemy firstEnemy = FindFirstObjectByType<Enemy>();
@@ -71,7 +71,7 @@ public class Player : Fighter
         else
             damageUI.text = " ";
 
-        return base.Fight();
+        return;
     }
     void Update()
     {
