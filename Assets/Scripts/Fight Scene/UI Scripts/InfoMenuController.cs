@@ -65,8 +65,9 @@ public class InfoMenuController : MonoBehaviour
             player.speed++;
             player.currentXp -= player.speedCost;
             player.speedCost+= player.level - 1;
+            player.maxHp = (player.strength + player.speed) * 2;
             player.currentHp = player.maxHp;
-            player.currentMp = player.maxMp;
+            
         }
         else
             Debug.Log("You don't have enough Xp!");
@@ -79,8 +80,8 @@ public class InfoMenuController : MonoBehaviour
             player.strength++;
             player.currentXp -= player.strengthCost;
             player.strengthCost+= player.level -1;
+            player.maxHp = (player.strength + player.speed) * 2;
             player.currentHp = player.maxHp;
-            player.currentMp = player.maxMp;
         }
         else
             Debug.Log("You don't have enough Xp!");

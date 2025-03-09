@@ -17,6 +17,7 @@ public class Fighter : MonoBehaviour
     public bool criticalHit;
     public bool criticalFailure;
     public Animator animator;
+    //public TextMeshProUGUI damageUI;
 
     void Start()
     {
@@ -24,14 +25,28 @@ public class Fighter : MonoBehaviour
         maxMp = intelligence + swagger;
         currentHp = maxHp;
         currentMp = maxMp;
+
+        /*GameObject tmpGO = GameObject.Find("/UICanvas/DamageUI/DamageText");
+        damageUI = tmpGO.GetComponent<TextMeshProUGUI>();
+        damageUI.text = " ";*/
     }
     public virtual IEnumerator Fight()
     {
+        //StartAnimation();
         yield return new WaitForSeconds(2.0f);
-        damageGiven = strength + Random.Range(1,7);
+        //StartFightAction();
+        damageGiven = strength + Random.Range(1, 7);
     }
-    public void TakeDamage (int damageTaken)
+    public void TakeDamage(int damageTaken)
     {
         currentHp -= damageTaken;
+    }
+    public void StartFightAnimation()
+    {
+        animator.SetTrigger("Fight");
+    }
+    public void StartFightAction()
+    {
+
     }
 }

@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Button restartButton;
     [SerializeField] GameObject hpSlider;
     [SerializeField] Button backButton;
+    public GameObject damageUIBox;
 
     Player playerUnit;
     Enemy enemyUnit1;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         state = BattleState.START;
         SetupBattle();
+        damageUIBox = GameObject.Find("/UICanvas/DamageUI");
     }
     void SetupBattle()
     {
@@ -245,13 +247,17 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         infoScreen.SetActive(true);
         basicCommandUI.SetActive(false);
+        damageUIBox.SetActive(false);
         backButton.Select();
+        
+        
     }
     public void UnpauseGame()
     {
         Time.timeScale = 1;
         infoScreen.SetActive(false);
         basicCommandUI.SetActive(true);
+        damageUIBox.SetActive(true);
 
         if (state == BattleState.PLAYERTURN)
         {
@@ -264,6 +270,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         gameOverScreen.SetActive(true);
         basicCommandUI.SetActive(false);
+        damageUIBox.SetActive(false);
         restartButton.Select();
+        
     }
 }
