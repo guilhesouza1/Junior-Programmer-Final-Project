@@ -1,11 +1,16 @@
 using UnityEngine;
 
-public class EnemyYellow : MonoBehaviour
+public class EnemyYellow : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        
+        GetTMP();
+        level = 5;
+        strength = 7;
+        speed = 7;
+        swagger = 8;
+        intelligence = 9;
+
     }
 
     // Update is called once per frame

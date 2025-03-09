@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
     {
         if (state != BattleState.PLAYERTURN)
             return;
-
+ 
         StartCoroutine(playerUnit.Fight());
 
         EndPlayerTurn();
@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
             {
                 GameObject enemy3GO = Instantiate(enemyRedPrefab, enemyBattleStation3);
                 enemyUnit3 = enemy3GO.GetComponent<Enemy>();
-                
+
                 state = BattleState.PLAYERTURN;
                 PlayerTurn();
             }
@@ -249,8 +249,6 @@ public class GameManager : MonoBehaviour
         basicCommandUI.SetActive(false);
         damageUIBox.SetActive(false);
         backButton.Select();
-        
-        
     }
     public void UnpauseGame()
     {
@@ -272,6 +270,5 @@ public class GameManager : MonoBehaviour
         basicCommandUI.SetActive(false);
         damageUIBox.SetActive(false);
         restartButton.Select();
-        
     }
 }

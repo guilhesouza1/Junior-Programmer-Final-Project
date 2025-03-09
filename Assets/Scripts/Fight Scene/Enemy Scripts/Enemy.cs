@@ -15,7 +15,7 @@ public class Enemy : Fighter
     }
     public override void StartFightAction()
     {
-        animator.SetTrigger("EnemyFight");
+        //animator.SetTrigger("EnemyFight");
         Player player = FindFirstObjectByType<Player>();
         int diceRollEnemy = Random.Range(1, 7);
         int diceRollPlayer = Random.Range(1, 7);
