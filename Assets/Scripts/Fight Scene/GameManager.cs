@@ -195,8 +195,9 @@ public class GameManager : MonoBehaviour
     {
         if (state != BattleState.PLAYERTURN)
             return;
- 
-        StartCoroutine(playerUnit.Fight());
+
+        else
+            StartCoroutine(playerUnit.Fight());
 
         EndPlayerTurn();
     }

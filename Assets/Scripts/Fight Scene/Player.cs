@@ -14,7 +14,7 @@ public class Player : Fighter
     public int strengthCost = 4;
     public int swaggerCost = 5;
     public TextMeshProUGUI damageUI;
-    //public Animator animator;
+    [SerializeField] Animator animator;
 
     void Awake()
     {
@@ -26,7 +26,8 @@ public class Player : Fighter
         maxXp = 0;
 
         currentXp = maxXp;
-
+        animator = gameObject.GetComponent<Animator>();
+        
         GameObject tmpGO = GameObject.Find("/UICanvas/DamageUI/DamageText");
         damageUI = tmpGO.GetComponent<TextMeshProUGUI>();
         damageUI.text = " ";
@@ -45,7 +46,7 @@ public class Player : Fighter
             criticalHit = true;
             int damageTaken = (strength + Random.Range(1, 7)) * 2;
             firstEnemy.TakeDamage(damageTaken);
-            Debug.Log("Critical Hit! You've dealt " + damageTaken + "HP damage!");
+            Debug.Log("[Player] Critical Hit! You've dealt " + damageTaken + "HP damage!");
             damageUI.text = "<#FFFFFF>Critical hit!</color> You've dealt <#FFF600>" + damageTaken + "HP!</color>";
         }
         else if (diceRollEnemy == 6 && diceRollPlayer == 1)
@@ -53,25 +54,29 @@ public class Player : Fighter
             criticalFailure = true;
             int damageTaken = strength + Random.Range(1, 7);
             TakeDamage(damageTaken);
-            Debug.Log("Critical Failure! You've suffered " + damageTaken + "HP damage!");
+            Debug.Log("[Player] Critical Failure! You've suffered " + damageTaken + "HP damage!");
             damageUI.text = "<#FFFFFF>Critical failure!</color> You lost <#FF0000>" + damageTaken + "HP!</color>";
         }
         else if (!criticalFailure && !criticalHit && enemySpeed >= playerSpeed)
         {
-            Debug.Log("Miss");
+            Debug.Log("[Player] Miss");
             damageUI.text = "<#FFFFFF>Miss!</color>";
         }
         else if (!criticalFailure && !criticalHit && enemySpeed < playerSpeed)
         {
             int damageTaken = strength + Random.Range(1, 7);
             firstEnemy.TakeDamage(damageTaken);
-            Debug.Log("Hit! You've dealt " + damageTaken + "HP damage");
+            Debug.Log("[Player] Hit! You've dealt " + damageTaken + "HP damage");
             damageUI.text = "<#FFFFFF>Hit!</color> You've dealt <#FF0000>" + damageTaken + "HP!</color>";
         }
         else
             damageUI.text = " ";
 
         return;
+    }
+    public override void StartFightAnimation()
+    {
+        animator.SetTrigger("Fight");
     }
     void Update()
     {

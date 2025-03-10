@@ -16,7 +16,6 @@ public class Fighter : MonoBehaviour
     public int damageGiven;
     public bool criticalHit;
     public bool criticalFailure;
-    private Animator animator {get;set;}
 
     void Start()
     {
@@ -24,15 +23,13 @@ public class Fighter : MonoBehaviour
         maxMp = intelligence + swagger;
         currentHp = maxHp;
         currentMp = maxMp;
-
-        animator = gameObject.GetComponent<Animator>();
     }
     public virtual IEnumerator Fight()
     {
         StartFightAnimation();
-        yield return new WaitForSeconds(2.0f);
+        //yield return new WaitForSeconds(2.0f);
         StartFightAction();
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
         
         damageGiven = strength + Random.Range(1, 7);
     }
@@ -40,9 +37,9 @@ public class Fighter : MonoBehaviour
     {
         currentHp -= damageTaken;
     }
-    public void StartFightAnimation()
+    public virtual void StartFightAnimation()
     {
-        animator.SetTrigger("Fight");
+        
     }
     public virtual void StartFightAction()
     {

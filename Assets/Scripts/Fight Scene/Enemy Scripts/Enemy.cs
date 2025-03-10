@@ -6,6 +6,7 @@ public class Enemy : Fighter
 {
     public bool isDead;
     public TextMeshProUGUI damageUI;
+    
 
     public void GetTMP()
     {
@@ -27,7 +28,7 @@ public class Enemy : Fighter
             criticalHit = true;
             int damageTaken = (strength + Random.Range(1, 7)) * 2;
             player.TakeDamage(damageTaken);
-            Debug.Log("Critical Hit! You've suffered " + damageTaken + "HP damage!");
+            Debug.Log("[Enemy " + transform.parent.name + "] Critical Hit! You've suffered " + damageTaken + "HP damage!");
             damageUI.text = "<#FF0000>Critical hit!</color> You lost <#FFFFFF>" + damageTaken + "HP!</color>";
         }
         else if (diceRollEnemy == 1 && diceRollPlayer == 6)
@@ -35,25 +36,29 @@ public class Enemy : Fighter
             criticalFailure = true;
             int damageTaken = strength + Random.Range(1, 7);
             TakeDamage(damageTaken);
-            Debug.Log("Critical Failure! The enemy has suffered " + damageTaken + "HP damage!");
+            Debug.Log("[Enemy " + transform.parent.name + "] Critical Failure! The enemy has suffered " + damageTaken + "HP damage!");
             damageUI.text = "<#FF0000>Critical Failure!</color> Enemy lost <#FFF600>" + damageTaken + "HP!</color>";
         }
         else if (!criticalFailure && !criticalHit && enemySpeed <= playerSpeed)
         {
-            Debug.Log("Miss");
+            Debug.Log("[Enemy " + transform.parent.name + "] Miss");
             damageUI.text = "<#FF0000>Miss!</color>";
         }
         else if (!criticalFailure && !criticalHit && enemySpeed > playerSpeed)
         {
             int damageTaken = strength + Random.Range(1, 7);
             player.TakeDamage(damageTaken);
-            Debug.Log("Hit! You've suffered " + damageTaken + "HP damage");
+            Debug.Log("[Enemy " + transform.parent.name + "] Hit! You've suffered " + damageTaken + "HP damage");
             damageUI.text = "<#FF0000>Hit!</color> You lost <#FFFFFF>" + damageTaken + "HP!</color>";
         }
         else
             damageUI.text = " ";
 
         return;
+    }
+    public override void StartFightAnimation()
+    {
+        base.StartFightAnimation();
     }
     public void CheckIfDead()
     {
