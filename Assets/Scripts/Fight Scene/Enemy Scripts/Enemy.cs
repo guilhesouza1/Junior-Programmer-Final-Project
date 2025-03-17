@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : Fighter
 {
-    public bool isDead;
+    //public bool isDead;
     public TextMeshProUGUI damageUI;
     
 

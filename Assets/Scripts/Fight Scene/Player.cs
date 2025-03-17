@@ -8,7 +8,7 @@ public class Player : Fighter
 {
     public int maxXp;
     public int currentXp;
-    public bool isDead;
+    //public bool isDead;
     public int intelligenceCost = 5;
     public int speedCost = 4;
     public int strengthCost = 4;
@@ -26,6 +26,7 @@ public class Player : Fighter
         maxXp = 0;
 
         currentXp = maxXp;
+
         animator = gameObject.GetComponent<Animator>();
         
         GameObject tmpGO = GameObject.Find("/UICanvas/DamageUI/DamageText");

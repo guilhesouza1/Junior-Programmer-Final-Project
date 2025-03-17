@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class Fighter : MonoBehaviour
 {
-    public int level;
-    public int strength;
-    public int speed;
-    public int swagger;
-    public int intelligence;
-    public int maxHp;
-    public int currentHp;
-    public int maxMp;
-    public int currentMp;
-    public int damageGiven;
-    public bool criticalHit;
-    public bool criticalFailure;
+    public int level { get; set; }
+    public int strength { get; set; }
+    public int speed { get; set; }
+    public int swagger { get; set; }
+    public int intelligence { get; set; }
+    public int maxHp { get; set; }
+    public int currentHp { get; set; }
+    public int maxMp { get; set; }
+    public int currentMp { get; set; }
+    public int damageGiven { get; set; }
+    public bool criticalHit; //{get;set;}
+    public bool criticalFailure; //{get;set;}
+    public bool isDead { get; set; }
+    public bool isFighting {get; set;}
 
     void Start()
     {
@@ -26,12 +28,16 @@ public class Fighter : MonoBehaviour
     }
     public virtual IEnumerator Fight()
     {
-        StartFightAnimation();
-        //yield return new WaitForSeconds(2.0f);
-        StartFightAction();
-        yield return new WaitForSeconds(3.0f);
-        
-        damageGiven = strength + Random.Range(1, 7);
+        if (!isDead)
+        {
+            isFighting = true;
+            damageGiven = strength + Random.Range(1, 7);
+            StartFightAnimation();
+            //yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(3.0f);
+            StartFightAction();
+            isFighting = false;
+        }
     }
     public void TakeDamage(int damageTaken)
     {
@@ -39,7 +45,7 @@ public class Fighter : MonoBehaviour
     }
     public virtual void StartFightAnimation()
     {
-        
+
     }
     public virtual void StartFightAction()
     {

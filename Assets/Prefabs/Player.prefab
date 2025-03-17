@@ -87,10 +87,15 @@ MonoBehaviour:
   damageGiven: 0
   criticalHit: 0
   criticalFailure: 0
-  animator: {fileID: 1292285422902740321}
   maxXp: 0
   currentXp: 0
   isDead: 0
+  intelligenceCost: 5
+  speedCost: 4
+  strengthCost: 4
+  swaggerCost: 5
+  damageUI: {fileID: 0}
+  animator: {fileID: 1292285422902740321}
 --- !u!95 &1292285422902740321
 Animator:
   serializedVersion: 7

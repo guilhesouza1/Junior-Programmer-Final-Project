@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2b72884ada4430681cea7a316a9c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
   playerPrefab: {fileID: 6220494398576721550, guid: 34875dc7b347f4d94b4f42364967b08d, type: 3}
   enemyRedPrefab: {fileID: 4943114458068289371, guid: 5c0090926f0334aabb05de34d7d313bf, type: 3}
   enemyYellowPrefab: {fileID: 0}
@@ -2029,8 +2028,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 30663417}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: UnpauseGame
-        m_Mode: 1
+        m_MethodName: PauseGame
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3709,7 +3708,7 @@ GameObject:
   - component: {fileID: 1018377208}
   - component: {fileID: 1018377207}
   m_Layer: 5
-  m_Name: PumpUpButton
+  m_Name: CallButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5565,14 +5564,14 @@ MonoBehaviour:
       - m_Target: {fileID: 30663417}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: PauseGame
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1614128630
 MonoBehaviour:

@@ -1,15 +1,19 @@
 using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN_A, ENEMYTURN_B, ENEMYTURN_C, WON, LOST }
+//public enum BattleState { START, PLAYERTURN, ENEMYTURN_A, ENEMYTURN_B, ENEMYTURN_C, WON, LOST }
 [DefaultExecutionOrder(1)]
 public class GameManager : MonoBehaviour
 {
-    public BattleState state;
+    //private BattleState state;
     public GameObject playerPrefab;
     public GameObject enemyRedPrefab;
     public GameObject enemyYellowPrefab;
@@ -18,6 +22,8 @@ public class GameManager : MonoBehaviour
     public Transform enemyBattleStation1;
     public Transform enemyBattleStation2;
     public Transform enemyBattleStation3;
+
+    //private List<Transform> enemyList = new List<Transform>();
     public GameObject infoScreen;
     public GameObject gameOverScreen;
     public GameObject basicCommandUI;
@@ -38,7 +44,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        state = BattleState.START;
+        //state = BattleState.START;
         SetupBattle();
         damageUIBox = GameObject.Find("/UICanvas/DamageUI");
     }
@@ -72,12 +78,12 @@ public class GameManager : MonoBehaviour
 
         if (playerInitiative >= enemyInitiative)
         {
-            state = BattleState.PLAYERTURN;
+            //state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
         else if (playerInitiative < enemyInitiative)
         {
-            state = BattleState.ENEMYTURN_A;
+            //state = BattleState.ENEMYTURN_A;
             EnemyTurn_A();
         }
     }
@@ -115,40 +121,75 @@ public class GameManager : MonoBehaviour
         else
             return;
     }
+    void SetButtons(bool val)
+    {
+        infoButton.interactable = val;
+        fightButton.interactable = val;
+
+        GameObject trash = GameObject.Find("/UICanvas/actionUI/IntermediateCommandUI/TrashButton");
+        Button trashButton = trash.GetComponent<Button>();
+        trashButton.interactable = val;
+
+        GameObject pumpUp = GameObject.Find("/UICanvas/actionUI/IntermediateCommandUI/PumpUpButton");
+        Button pumpUpButton = pumpUp.GetComponent<Button>();
+        pumpUpButton.interactable = val;
+
+        GameObject dodge = GameObject.Find("/UICanvas/actionUI/AdvancedCommandUI/DodgeButton");
+        Button dodgeButton = dodge.GetComponent<Button>();
+        dodgeButton.interactable = val;
+
+        GameObject call = GameObject.Find("/UICanvas/actionUI/AdvancedCommandUI/CallButton");
+        Button callButton = call.GetComponent<Button>();
+        callButton.interactable = val;
+
+        //System.Threading.Thread.Sleep(1000);
+    }
     public void EnemyTurn_A()
     {
         ResetCriticals();
 
         StartCoroutine(enemyUnit1.Fight());
 
-        if (enemyBattleStation2.childCount > 0)
+        /*if (enemyUnit1.isFighting)
         {
-            state = BattleState.ENEMYTURN_B;
-            EnemyTurn_B();
+            SetButtons(false);
         }
-        else if (enemyBattleStation2.childCount == 0 && playerUnit.isDead == false)
-        {
-            GameObject enemy2GO = Instantiate(enemyRedPrefab, enemyBattleStation2);
-            enemyUnit2 = enemy2GO.GetComponent<Enemy>();
+        if (!enemyUnit1.isFighting)
+        {}*/
+            if (enemyBattleStation2.childCount > 0)
+            {
+                //state = BattleState.ENEMYTURN_B;
+                EnemyTurn_B();
+            }
+            else if (enemyBattleStation2.childCount == 0 && playerUnit.isDead == false)
+            {
+                GameObject enemy2GO = Instantiate(enemyRedPrefab, enemyBattleStation2);
+                enemyUnit2 = enemy2GO.GetComponent<Enemy>();
 
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
+                //state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
+            else
+            {
+                //state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
         }
-        else
-        {
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
-        }
-    }
     public void EnemyTurn_B()
     {
         ResetCriticals();
 
         StartCoroutine(enemyUnit2.Fight());
 
+        /*if (enemyUnit2.isFighting)
+        {
+            SetButtons(false);
+        }
+        if (!enemyUnit2.isFighting)
+        {}*/
         if (enemyBattleStation3.childCount > 0)
         {
-            state = BattleState.ENEMYTURN_C;
+            //state = BattleState.ENEMYTURN_C;
             EnemyTurn_C();
         }
         else if (enemyBattleStation3.childCount == 0 && playerUnit.isDead == false)
@@ -156,12 +197,12 @@ public class GameManager : MonoBehaviour
             GameObject enemy3GO = Instantiate(enemyRedPrefab, enemyBattleStation3);
             enemyUnit3 = enemy3GO.GetComponent<Enemy>();
 
-            state = BattleState.PLAYERTURN;
+            //state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
         else
         {
-            state = BattleState.PLAYERTURN;
+            //state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
     }
@@ -171,34 +212,50 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(enemyUnit3.Fight());
 
+        /*if (enemyUnit3.isFighting)
+        {
+            SetButtons(false);
+        }
+        if (!enemyUnit3.isFighting)
+        {}*/
         if (enemyBattleStation1.childCount == 0 && playerUnit.isDead == false)
         {
             GameObject enemy1GO = Instantiate(enemyRedPrefab, enemyBattleStation1);
             enemyUnit1 = enemy1GO.GetComponent<Enemy>();
 
-            state = BattleState.PLAYERTURN;
+            //state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
         else
         {
-            state = BattleState.PLAYERTURN;
+            //state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
     }
     public void PlayerTurn()
     {
         ResetCriticals();
-
+        /*if (!playerUnit.isFighting)
+        {
+            SetButtons(true);
+        }*/
         infoButton.Select();
     }
     public void OnFightButton()
     {
-        if (state != BattleState.PLAYERTURN)
+        /*if (state != BattleState.PLAYERTURN)
             return;
 
         else
-            StartCoroutine(playerUnit.Fight());
+        {*/
 
+        StartCoroutine(playerUnit.Fight());
+        /*if (playerUnit.isFighting)
+        {
+            SetButtons(false);
+        }
+        if (!playerUnit.isFighting)
+        {}*/
         EndPlayerTurn();
     }
 
@@ -206,7 +263,7 @@ public class GameManager : MonoBehaviour
     {
         if (enemyUnit1.isDead == false && enemyBattleStation1.childCount > 0)
         {
-            state = BattleState.ENEMYTURN_A;
+            //state = BattleState.ENEMYTURN_A;
             EnemyTurn_A();
         }
 
@@ -217,7 +274,7 @@ public class GameManager : MonoBehaviour
 
             if (enemyBattleStation2.childCount > 0)
             {
-                state = BattleState.ENEMYTURN_B;
+                //state = BattleState.ENEMYTURN_B;
                 EnemyTurn_B();
             }
             else if (enemyBattleStation2.childCount == 0 && enemyBattleStation3.childCount > 0)
@@ -225,7 +282,7 @@ public class GameManager : MonoBehaviour
                 GameObject enemy2GO = Instantiate(enemyRedPrefab, enemyBattleStation2);
                 enemyUnit2 = enemy2GO.GetComponent<Enemy>();
 
-                state = BattleState.ENEMYTURN_C;
+                //state = BattleState.ENEMYTURN_C;
                 EnemyTurn_C();
             }
             else if (enemyBattleStation2.childCount == 0 && enemyBattleStation3.childCount == 0)
@@ -233,17 +290,17 @@ public class GameManager : MonoBehaviour
                 GameObject enemy3GO = Instantiate(enemyRedPrefab, enemyBattleStation3);
                 enemyUnit3 = enemy3GO.GetComponent<Enemy>();
 
-                state = BattleState.PLAYERTURN;
+                //state = BattleState.PLAYERTURN;
                 PlayerTurn();
             }
             else
             {
-                state = BattleState.PLAYERTURN;
+                //state = BattleState.PLAYERTURN;
                 PlayerTurn();
             }
         }
     }
-    public void PauseGame()
+    /*public void PauseGame()
     {
         Time.timeScale = 0;
         infoScreen.SetActive(true);
@@ -258,11 +315,28 @@ public class GameManager : MonoBehaviour
         basicCommandUI.SetActive(true);
         damageUIBox.SetActive(true);
 
-        if (state == BattleState.PLAYERTURN)
+       if (state == BattleState.PLAYERTURN)
         {
             infoButton.Select();
         }
         else { return; }
+    }*/
+
+    public void PauseGame(bool val)
+    {
+        if (val)
+        {
+            Time.timeScale = 0;
+            backButton.Select();
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        infoScreen.SetActive(val);
+        basicCommandUI.SetActive(!val);
+        damageUIBox.SetActive(!val);
+
     }
     public void GameOver()
     {
@@ -272,4 +346,8 @@ public class GameManager : MonoBehaviour
         damageUIBox.SetActive(false);
         restartButton.Select();
     }
+    /*public void AddEnemyBattleStation(Transform transform)
+    {
+        enemyList.Add(transform)
+    }*/
 }

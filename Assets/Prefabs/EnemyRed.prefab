@@ -86,8 +86,9 @@ MonoBehaviour:
   damageGiven: 0
   criticalHit: 0
   criticalFailure: 0
-  animator: {fileID: 1308762091127262209}
   isDead: 0
+  damageUI: {fileID: 0}
+  animator: {fileID: 1308762091127262209}
 --- !u!95 &1308762091127262209
 Animator:
   serializedVersion: 7
@@ -101,7 +102,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: bf2a8df32f1ae475db83fcab4cfc2a70, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
